@@ -2,6 +2,7 @@ package traffic.service
 
 import org.springframework.stereotype.Service
 import traffic.dto.TrafficDto
+import traffic.exception.TrafficNotFoundException
 import traffic.model.Traffic
 import traffic.repository.TrafficRepository
 
@@ -15,18 +16,17 @@ class TrafficServiceImpl(
     override fun getById(id: Int): TrafficDto =
         trafficRepository.findById(id)
             ?.toDto()
-            ?: throw RuntimeException("Traffic with id = $id not found")
+            ?: throw TrafficNotFoundException(id)
 
-    override fun create(dto: TrafficDto) {
-        TODO("Not yet implemented")
-    }
+    override fun create(dto: TrafficDto): Int =
+        trafficRepository.create(dto)
 
     override fun update(id: Int, dto: TrafficDto) {
-        TODO("Not yet implemented")
+        trafficRepository.update(id, dto)
     }
 
-    override fun delete(id: Int) {
-        TODO("Not yet implemented")
+    override fun deleteById(id: Int) {
+        trafficRepository.deleteById(id)
     }
 
     private fun Traffic.toDto() = TrafficDto(

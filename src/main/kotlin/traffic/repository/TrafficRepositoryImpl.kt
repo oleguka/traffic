@@ -1,8 +1,11 @@
 package traffic.repository
 
 import org.springframework.jdbc.core.RowMapper
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
+import org.springframework.jdbc.support.GeneratedKeyHolder
 import org.springframework.stereotype.Repository
+import traffic.dto.TrafficDto
 import traffic.model.Traffic
 import traffic.utils.getIntOrNull
 
@@ -24,16 +27,38 @@ class TrafficRepositoryImpl(
             ROW_MAPPER
         ).firstOrNull()
 
-    override fun create(dto: Traffic) {
-        TODO("Not yet implemented")
+    override fun create(dto: TrafficDto): Int {
+        val keyHolder = GeneratedKeyHolder()
+        jdbcTemplate.update(
+            "insert into traffic (title, passenger_count) values (:title, :passengerCount)",
+            MapSqlParameterSource(
+                mapOf(
+                    "title" to dto.title,
+                    "passengerCount" to dto.passengerCount,
+                )
+            ),
+            keyHolder,
+            listOf("id").toTypedArray()
+        )
+        return keyHolder.keys?.getValue("id") as Int
     }
 
-    override fun update(id: Int, dto: Traffic) {
-        TODO("Not yet implemented")
+    override fun update(id: Int, dto: TrafficDto) {
+        jdbcTemplate.update(
+            "update traffic set title = :title, passenger_count = :passengerCount where id = :id",
+            mapOf(
+                "id" to id,
+                "title" to dto.title,
+                "passengerCount" to dto.passengerCount,
+            )
+        )
     }
 
-    override fun delete(id: Int) {
-        TODO("Not yet implemented")
+    override fun deleteById(id: Int) {
+        jdbcTemplate.update(
+            "delete from traffic where id = :id",
+            mapOf("id" to id)
+        )
     }
 
     private companion object {

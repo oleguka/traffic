@@ -9,10 +9,10 @@ interface TrafficService {
 
     fun getById(id: Int): TrafficDto
 
-    fun create(dto: TrafficDto)
+    fun create(dto: TrafficDto): Int
 
     fun update(id: Int, @RequestBody dto: TrafficDto)
 
-    fun delete(id: Int)
+    fun deleteById(id: Int)
 
 }

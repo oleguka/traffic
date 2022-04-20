@@ -24,9 +24,9 @@ class TrafficController(
     fun getById(@PathVariable id: Int): TrafficDto = trafficService.getById(id)
 
     @PostMapping
-    fun create(@RequestBody dto: TrafficDto) {
+    fun create(@RequestBody dto: TrafficDto): Int =
         trafficService.create(dto)
-    }
+
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Int, @RequestBody dto: TrafficDto) {
@@ -34,8 +34,8 @@ class TrafficController(
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Int) {
-        trafficService.delete(id)
+    fun deleteById(@PathVariable id: Int) {
+        trafficService.deleteById(id)
     }
 
 }

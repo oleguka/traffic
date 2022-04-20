@@ -1,6 +1,7 @@
 package traffic.repository
 
 import org.springframework.web.bind.annotation.RequestBody
+import traffic.dto.TrafficDto
 import traffic.model.Traffic
 
 interface TrafficRepository {
@@ -9,10 +10,10 @@ interface TrafficRepository {
 
     fun findById(id: Int): Traffic?
 
-    fun create(dto: Traffic)
+    fun create(dto: TrafficDto): Int
 
-    fun update(id: Int, @RequestBody dto: Traffic)
+    fun update(id: Int, @RequestBody dto: TrafficDto)
 
-    fun delete(id: Int)
+    fun deleteById(id: Int)
 
 }
