@@ -4,3 +4,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: 12345
+
+scheduler:
+  traffic:
+    deleteAll: 00 41 16 * * *

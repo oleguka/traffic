@@ -16,4 +16,6 @@ interface TrafficRepository {
 
     fun deleteById(id: Int)
 
+    fun deleteAll()
+
 }

@@ -1,6 +1,7 @@
 package traffic.repository
 
 import org.springframework.jdbc.core.RowMapper
+import org.springframework.jdbc.core.namedparam.EmptySqlParameterSource
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.jdbc.support.GeneratedKeyHolder
@@ -58,6 +59,13 @@ class TrafficRepositoryImpl(
         jdbcTemplate.update(
             "delete from traffic where id = :id",
             mapOf("id" to id)
+        )
+    }
+
+    override fun deleteAll() {
+        jdbcTemplate.update(
+            "truncate table traffic",
+            EmptySqlParameterSource.INSTANCE
         )
     }
 

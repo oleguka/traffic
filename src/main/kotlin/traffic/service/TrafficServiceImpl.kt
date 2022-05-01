@@ -1,5 +1,6 @@
 package traffic.service
 
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import traffic.dto.TrafficDto
 import traffic.exception.TrafficNotFoundException
@@ -27,6 +28,12 @@ class TrafficServiceImpl(
 
     override fun deleteById(id: Int) {
         trafficRepository.deleteById(id)
+        logger.info("Delete traffic with id = $id")
+    }
+
+    override fun deleteAll() {
+        trafficRepository.deleteAll()
+        logger.info("Delete all traffic rows by Scheduler")
     }
 
     private fun Traffic.toDto() = TrafficDto(
@@ -34,5 +41,7 @@ class TrafficServiceImpl(
         title = title,
         passengerCount = passengerCount,
     )
+
+    private val logger = LoggerFactory.getLogger(TrafficService::class.java)
 
 }

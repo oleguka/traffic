@@ -15,4 +15,6 @@ interface TrafficService {
 
     fun deleteById(id: Int)
 
+    fun deleteAll()
+
 }
