@@ -2,6 +2,7 @@ package traffic.service
 
 import org.springframework.web.bind.annotation.RequestBody
 import traffic.dto.TrafficDto
+import traffic.event.TrafficEvent
 
 interface TrafficService {
 
@@ -16,5 +17,7 @@ interface TrafficService {
     fun deleteById(id: Int)
 
     fun deleteAll()
+
+    fun onTrafficEvent(event: TrafficEvent)
 
 }

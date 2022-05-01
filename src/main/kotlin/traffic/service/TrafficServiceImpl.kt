@@ -1,8 +1,10 @@
 package traffic.service
 
 import org.slf4j.LoggerFactory
+import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Service
 import traffic.dto.TrafficDto
+import traffic.event.TrafficEvent
 import traffic.exception.TrafficNotFoundException
 import traffic.model.Traffic
 import traffic.repository.TrafficRepository
@@ -34,6 +36,11 @@ class TrafficServiceImpl(
     override fun deleteAll() {
         trafficRepository.deleteAll()
         logger.info("Delete all traffic rows by Scheduler")
+    }
+
+    @EventListener
+    override fun onTrafficEvent(event: TrafficEvent) {
+        logger.info("Event $event")
     }
 
     private fun Traffic.toDto() = TrafficDto(
